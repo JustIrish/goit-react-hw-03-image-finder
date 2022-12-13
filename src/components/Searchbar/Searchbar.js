@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { Component } from 'react';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { CiSearch } from 'react-icons/ci';
@@ -9,6 +10,10 @@ import {
 } from './Searchbar.styled';
 
 export class Searchbar extends Component {
+  static propTypes = {
+    onSubmit: PropTypes.func.isRequired,
+  };
+
   state = {
     searchValue: '',
   };
@@ -23,7 +28,9 @@ export class Searchbar extends Component {
     const { searchValue } = this.state;
 
     if (searchValue.trim() === '') {
-      Notify.warning('Введите значение', { clickToClose: true });
+      Notify.warning('Please, enter a query to search!', {
+        clickToClose: true,
+      });
       return;
     }
     this.props.onSubmit(searchValue);
@@ -42,8 +49,8 @@ export class Searchbar extends Component {
             type="text"
             value={searchValue}
             onChange={this.handleValueChange}
-            // autocomplete="off"
-            // autofocus
+            autocomplete="off"
+            autoFocus
             placeholder="Search images and photos"
           ></SearchInput>
         </SearchForm>
