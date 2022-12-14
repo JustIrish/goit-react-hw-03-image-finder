@@ -44,14 +44,14 @@ export class App extends Component {
   }
 
   handleFormSubmit = value => {
-    this.setState({
-      query: value,
-      page: 1,
-      items: [],
-      totalHits: 0,
-      loading: false,
-      selectedImage: null,
-    });
+    if (this.state.query !== value) {
+      this.setState({
+        query: value,
+        page: 1,
+        items: [],
+      });
+    }
+    return;
   };
 
   loadMoreHandler = () => {
